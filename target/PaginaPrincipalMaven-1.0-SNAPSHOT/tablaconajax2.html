@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery/jquery-2.1.4.js" type="text/javascript"></script>
+        <script src="bootstrap-3.3.2-dist/js/bootstrap.min.js" type="text/javascript"></script>
+        <link href="bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/estilolecturaweb_1.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+
+                var clickeado = function () {
+                    $.ajax({
+                        url: "/PaginaPrincipalMaven/nuevoservlet6?op1=" + $("#operacion1").val() + "&op=" + $("#operacion2").val(),
+                        type: "GET",
+                        dataType: "json",
+                        success: function (source) {
+
+                            var tabla = "<table>";
+                            for (i = 0; i < source.length; i++) {
+                                tabla += "<tr>";
+                                for (j = 0; j < source[i].length; j++) {
+                                    tabla += "<td>";
+                                    tabla += source[i][j];
+                                    tabla += "</td>";
+                                }
+                                tabla += "</tr>";
+                            }
+                            tabla += "</table>";
+                            $("#pokemon").empty().append(tabla);
+                        },
+                        error: function (dato) {
+                            $("#pokemon").append("ERROR en la recepción de datos de clientes");
+                        }
+                    });
+                    return false;
+                };
+                $("#boton").click(clickeado);
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row" >
+                <div class="col-md-12">
+                    <div id="info">
+                        <form name="tabla" method="GET" action= "nuevoservlet">                       
+                            <div>
+                                <input type="text" id="operacion1" name="op1">                            
+                                <input type="text" id="operacion2" name="op2">
+                            </div>                        
+                            <button id="boton" type="submit">Generar</button> 
+                        </form>
+                    </div>
+                    <div id="pokemon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

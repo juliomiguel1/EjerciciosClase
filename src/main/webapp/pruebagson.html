@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/mijsonstylo.css" rel="stylesheet" type="text/css"/>
+        <script src="jquery/jquery-2.1.4.js" type="text/javascript"></script>
+        <script>
+
+            $(document).ready(function () {
+
+                var clickeado = function () {
+                    var op1 = $("#datos").val();
+                    $.ajax({
+                        url: "/PaginaPrincipalMaven/ejerciciopojos?datos=" + op1,
+                        type: "GET",
+                        dataType: "json",
+                        success: function (source) {
+                            $("#reflejar1").empty();
+                            for (var i = 1; i <= op1; i++) {
+                                var pers = "<div>";
+                                pers += "<p>Nombre : " + source[i].Nombre + "</p>";
+                                pers += "<p>Apellido : " + source[i].Apellido1 + source[i].Apellido2 + "</p>";
+                                pers += "<p>Email : " + source[i].Email + "</p>";
+                                pers += "<p>Telefono : " + source[i].Telefono + "</p>";
+                                if (i == 1) {
+                                    pers += "<p>Amigo : Esta mas solo que la una</p>"
+                                } else {
+                                    pers += "<p>Amigo : " + source[i].Amigo.Nombre + source[i].Amigo.Apellido1 + source[i].Amigo.Apellido2 + "</p>";
+                                }
+                                pers += "</br></div>";
+
+                                $("#reflejar1").append(pers);
+                            }
+                        },
+                        error: function (dato) {
+                            $("#pokemon").append("ERROR en la recepción de datos de clientes");
+                        }
+
+                    });
+                    return false;
+                }
+                $("#boton").click(clickeado);
+            });
+        </script>
+
+    </head>
+    <body>
+        <div class="container"> 
+            <div class="row" id="cabecera">
+                <div class="col-md-12">
+                    <h1>PRUEBA PERSONAS GSON</h1>
+                </div>
+            </div>
+            <div class="row" id="cabecera">
+                <form name="tabla" method="GET" > 
+                    <div class="col-md-6">
+                        <input type="text" name="abuscar"  id="datos">
+                    </div>
+                    <div class="col-md-6">
+                        <button  type="button" class="btn btn-default" id="boton">Buscar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="row" >
+                <div class="col-md-12" id="reflejar1">             
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

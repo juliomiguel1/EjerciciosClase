@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="jquery/jquery-2.1.4.js" type="text/javascript"></script>
+        <script src="bootstrap-3.3.2-dist/js/bootstrap.min.js" type="text/javascript"></script>
+        <script>
+
+            $(document).ready(function () {
+
+                var tratarclick = function () {
+
+                    $("#boton").hide();
+                    $("#spinner").show();
+                    $("#mostrar").empty();
+                    $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+                            {
+                                tags: $("#Nombre").val(),
+                                tagmode: "any",
+                                format: "json"
+                            },
+                    function (data) {
+                        $.each(data.items, function (i, item) {
+                            $("#mostrar").append("<img src=" + item.media.m + "/>");
+                            //  $("<img/>").attr("src", item.media.m).appendTo("#mostrar");
+                            if (i == 20)
+                                return false;
+                        });
+                        $("#boton").show();
+                        $("#spinner").hide();
+                    });
+
+                    return false;
+                }
+                $("#boton").click(tratarclick);
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container"> 
+            <div class="row" id="cabecera" style="text-align: center">
+                <div class="col-md-12">
+                    <h1>PRUEBA FLICKR</h1>
+                </div>
+            </div>
+            <div class="row" id="cabecera" style="text-align: left">               
+
+                <div class="col-md-1">                           
+                    <label for="Name">Nombre :</label>
+                </div>
+                <div class="col-md-2">  
+
+                    <input id="Nombre" type="text" name="Nombre" value="">   
+
+                </div>
+                <div class="col-md-1"> 
+                    <button  type="button" class="btn btn-default" id="boton">Buscar</button>
+                    <div id="spinner"  style="display:none;">
+                        <img id="img-spinner" src="imgs/ajax-loader.gif" alt="Loading"/>
+                    </div>
+                </div>
+            </div>  
+            <div class="row" id="cabecera" style="text-align: left">   
+                <div class="col-md-12" id="mostrar">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="MediaStyle.css" rel="stylesheet" type="text/css"/>
+
+        <script type ="text/javascript">
+
+            function media() {
+
+               
+                var contador = 1;
+
+                var suma=0;
+                
+                var media=0;
+
+                do{
+                    var recibido = prompt("Dame un numero");
+                    
+                    if(recibido === null){ /* if(recibido == undefined)*/
+                        break;                        
+                    }
+                    suma = parseInt(suma) + parseInt(recibido);
+                    
+                    media = suma/ contador;
+                    document.getElementById('contenido').innerHTML = ("La suma de los numeros es :" + suma);
+                    document.getElementById('contenido1').innerHTML = ("La media de los numeros es :" + media);
+                    document.getElementById('contenido2').innerHTML = ("La cantidad de numeros son:" + contador);
+                    
+                    contador++;
+                }while(recibido !== null); /*if(recibido != undefined)*/
+
+            }
+            window.onload = media;
+
+        </script>
+    </head>
+    <body>
+        <h1>CALCULA LA MEDIA DE NUMEROS INTRODUCIDOS</h1>
+        <div id="contenido"></div>
+        <div id="contenido1"></div>
+        <div id="contenido2"></div>
+    </body>
+</html>

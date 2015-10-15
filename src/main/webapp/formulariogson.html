@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="jquery/jquery-2.1.4.js" type="text/javascript"></script>
+        <script src="bootstrap-3.3.2-dist/js/bootstrap.min.js" type="text/javascript"></script>
+
+        <script>
+
+            $.fn.serializeObject = function () {
+                var o = {};
+                var a = this.serializeArray();
+                $.each(a, function () {
+                    if (o[this.name] !== undefined) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = encodeURIComponent(this.value) || '';
+                    }
+                });
+                return o;
+            };
+            $(document).ready(function () {
+
+            
+
+                $("#boton").click(function () {
+
+                    $("#boton").hide();
+                    $("#spinner").show();
+                    $("#reflejar1").empty().append("<h2>Sending data... </h2>")
+                    var ObjetoFormulario = $("#actividadForm").serializeObject();
+                    var valores = JSON.stringify(ObjetoFormulario);
+                    $("#reflejar1").append(valores) + "<br />";
+                    $("#send_table").append("<tr><td>" + ObjetoFormulario.Nombre + "</td><td>" + ObjetoFormulario.Apellido1 + "</td><td>" + ObjetoFormulario.Apellido2 + "</td><td>" + ObjetoFormulario.FechadeNacimiento + "</td><td>" + ObjetoFormulario.Email + "</td></tr>" + ObjetoFormulario.Telefono + "</td></tr>");
+                    //      var contenidoAjax = $('#contenidoAjax').html('<p><img src="imgs/ajax-loader.gif"/></p>');
+
+                    $.ajax({
+                        url: "/PaginaPrincipalMaven/formulariopojos?op=set",
+                        type: "GET",
+                        data: {json: valores},
+                        contentType: "application/json; charset=UTF-8",
+                        /*     beforeSend: function (xhr, settings) {
+                         $("#boton").attr('disabled', 'disabled').prepend('<i class="fa fa-refresh fa-spin"></i> ');
+                         },*/
+                        success: function (source) {
+                            // contenidoAjax.html(source);
+                            //  $("#contenidoAjax").append("<button  type=\"button\" class=\"btn btn-default\" id=\"boton\">Buscar</button>");
+                            $("#boton").show();
+                            $("#spinner").hide();
+                            if (source.status == 200) {
+                                $("#reflejar1").append("<h2>Receiving data... </h2>");
+                                $("#reflejar1").append(JSON.stringify(source) + "<br />");
+                                $("#response_table").append("<tr><td>" + source.message.Nombre + "</td><td>" + source.message.Apellido1 + "</td><td>" + source.message.Apellido2 + "</td><td>" + source.message.Telefono + "</td><td>" + source.message.Email + "</td></tr>");
+                            } else {
+                                $("#reflejar1").append("<h2>ERROR: " + source.message + "</h2>");
+                            }
+                        },
+                        /*  complete: function () {
+                         $("#boton").removeAttr('disabled').find('i.fa').remove();
+                         }*/
+                        error: function (dato) {
+                            $("#boton").show();
+                            $("#spinner").hide();
+                            $("#reflejar1").append("ERROR en la recepción de datos de clientes");
+                        }
+
+                    });
+                    return false;
+                });
+            });
+
+        </script>
+    </head>
+    <body>
+        <div class="container"> 
+            <div class="row" id="cabecera">
+                <div class="col-md-12">
+                    <h1>FORMULARIO GSON</h1>
+                </div>
+            </div>
+            <div class="row" id="cabecera">
+                <form name="tabla" method="POST" id="actividadForm"> 
+                    <div class="col-md-12">
+                        <div class="form-group">                            
+                            <label for="Name" class="col-sm-2 control-label">Nombre :</label>
+                            <div class="col-sm-10">
+                                <input id="Nombre" type="text" name="Nombre" value="Julio">   
+                            </div>
+                        </div>
+                        <div class="form-group">                            
+                            <label for="Apellido1" class="col-sm-2 control-label">Primer Apellido :</label>
+                            <div class="col-sm-10">
+                                <input id="Apellido1" type="text" name="Apellido1" value="Miguel">  
+                            </div>
+                        </div>
+                        <div class="form-group">                            
+                            <label for="Apellido2" class="col-sm-2 control-label">Segundo Apellido :</label>
+                            <div class="col-sm-10">
+                                <input id="Apellido2" type="text" name="Apellido2" value="Gutierrez">                            
+                            </div>
+                        </div>
+                        <div class="form-group">                            
+                            <label for="FechadeNacimiento" class="col-sm-2 control-label">Fecha de nacimiento :</label>
+                            <div class="col-sm-10">
+                                <input id="Fechadenacimiento" type="text" name="FechadeNacimiento">                            
+                            </div>
+                        </div>
+                        <div class="form-group">                            
+                            <label for="Email" class="col-sm-2 control-label">Email :</label>
+                            <div class="col-sm-10">
+                                <input id="Email" type="text" name="Email" value="p">                            
+                            </div>
+                        </div>
+                        <div class="form-group">                            
+                            <label for="Telefono" class="col-sm-2 control-label">Telefono :</label>
+                            <div class="col-sm-10">
+                                <input id="Telefono" type="text" name="Telefono" value="96203">                            
+                            </div>
+                        </div>
+                        <div id="contenidoAjax">
+                            <button  type="button" class="btn btn-default" id="boton">Buscar</button>
+                            <div id="spinner"  style="display:none;">
+                                <img id="img-spinner" src="imgs/ajax-loader.gif" alt="Loading"/>
+                            </div>
+                        </div>           
+                    </div>
+                </form>
+            </div>
+            <div class="row" >
+                <div class="col-md-12" id="reflejar1">             
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Sent to the server</h3>
+                    <table class="table table-hover" id="send_table">    
+                    </table>    
+                </div>
+                <div class="col-md-6">
+                    <h3>Received from the server</h3>
+                    <table class="table table-hover" id="response_table">                                                    
+                    </table>                    
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>

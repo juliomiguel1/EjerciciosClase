@@ -1,0 +1,117 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 06-oct-2015, 10:48:07
+    Author     : a020864288e
+*/
+html{
+
+    background-color: white;
+}
+body{
+    padding-top: 20px;
+    text-align:center;
+
+
+    background: -moz-linear-gradient(top,  rgba(227,76,38,1) 0%, rgba(240,101,41,0.1) 90%, rgba(240,101,41,0) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(227,76,38,1)), color-stop(90%,rgba(240,101,41,0.1)), color-stop(100%,rgba(240,101,41,0)));
+    background: -webkit-linear-gradient(top,  rgba(227,76,38,1) 0%,rgba(240,101,41,0.1) 90%,rgba(240,101,41,0) 100%);
+    background: -o-linear-gradient(top,  rgba(227,76,38,1) 0%,rgba(240,101,41,0.1) 90%,rgba(240,101,41,0) 100%);
+    background: -ms-linear-gradient(top,  rgba(227,76,38,1) 0%,rgba(240,101,41,0.1) 90%,rgba(240,101,41,0) 100%);
+    background: linear-gradient(to bottom,  rgba(227,76,38,1) 0%,rgba(240,101,41,0.1) 90%,rgba(240,101,41,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e34c26', endColorstr='#00f06529',GradientType=0 );
+    background-repeat: no-repeat;
+}
+
+#botonlistarproducto{
+    padding-top: 10px;
+    text-align: left;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+#botonrefrescarproducto{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+#botonseguircomprando{
+    padding-top: 10px;
+    text-align: right;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+#tablalistarproducto{
+    text-align: center;    
+    margin: 0 auto;
+    
+    background-color: white;
+    border-radius: 20px 20px 20px 20px;
+    opacity: 0.8;
+}
+
+.tabla{
+    
+    margin: 10px;
+}
+
+ td{
+     
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom:10px;
+    
+    text-align: center;
+   // margin:10px;
+    border: 2px solid black;
+
+}
+
+#botonopcionespedir{
+    
+    text-align: left;
+}
+
+#fieldopcionespedir{
+    
+    text-align: right;
+}
+
+#opcionespedir{
+    
+    margin:  20px;
+}
+/*.tabla1, td{
+
+    padding: 10px;
+    text-align: center;
+    margin:40px;
+    border: 2px solid black;
+
+}*/
+input[type="text"] {
+    width: 60px;
+    text-align: right;
+}
+/*
+#botonpedir{
+
+    text-align: rigth;
+}
+
+#cabecera{
+
+    text-align: center;
+}
+#opciones{
+
+    //text-align: center;
+    //margin-left: 5px;
+    padding-left: 20px;
+}*/

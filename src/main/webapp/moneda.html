@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <script type="text/javascript">
+            
+                function moneda(){
+                    
+                    var cambio = prompt("Dame una cifra");
+                    
+                    var mensaje = "";
+                                 
+                    
+                    var cambiopesetas = parseInt(cambio) * 166.386;
+                    var vueltapesetas = parseInt(cambio) / 166.386;
+                    var conDecimal = vueltapesetas.toFixed(4);
+                    document.getElementById('contenido').innerHTML = (cambio + "  euros son " + cambiopesetas + " pesetas");
+                    document.getElementById('contenido1').innerHTML = (conDecimal + " euros son " +cambio +" pesetas ");
+                }
+                
+                window.onload = moneda;
+        </script>
+    </head>
+    <body>
+        <h1>CAMBIO DE MONEDA</h1>
+        <div id="contenido"></div>
+        <div id="contenido1"></div>
+    </body>
+</html>

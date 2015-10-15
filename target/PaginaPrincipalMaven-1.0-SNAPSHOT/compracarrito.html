@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="bootstrap-3.3.2-dist/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="jquery/jquery-2.1.4.js" type="text/javascript"></script>
+
+        <script src="bootstrap-3.3.2-dist/js/bootstrap.min.js" type="text/javascript"></script>
+        <link href="css/carrito.css" rel="stylesheet" type="text/css"/>
+
+        <script>
+
+            $(document).ready(function () {
+                /*Divs ocultos al cargar la pagina*/
+                $("#tablalistarproducto").hide();
+                $("#opcionespedir").hide();
+                /*Fin de divs ocultos*/
+
+                var listarproductos = function () {
+
+                    $.ajax({
+                        url: "/PaginaPrincipalMaven/compras?ob=" + $("#productos").val() + "&op=list",
+                        type: "GET",
+                        dataType: "json",
+                        success: function (source) {
+                            if (source.status == 200) {
+
+                                $("#tablalistarproducto").show();
+                                var pers = "<table class=\"tabla\">";
+
+                                pers += "<tr>";
+                                pers += "<td>" + "Numero" + "</td>";
+                                pers += "<td>" + "Descripcion" + "</td>";
+                                pers += "<td>" + "Existencias" + "</td>";
+                                pers += "<td>" + "Precio" + "</td>";
+                                pers += "</tr>";
+
+                                 $.each(source.message, function (i, producto) {
+                                             pers += "<tr class=\"row" + i + "\">";
+                                    pers += "<td class=\"col" + i + "" + 1 + "\">" + producto.Numero + "</td>";
+                                             pers += "<td class=\"col" + i + "" + 2 + "\">" + producto.Descripcion + "</td>";
+                                    pers += "<td class=\"col" + i + "" + 3 + "\">" + producto.Existencias + "</td>";
+                                    pers += "<td class=\"col" + i + "" + 4 + "\">" + producto.Precio + "</td>";
+
+
+                                    pers += "</tr>";
+                                                   
+                                    });
+                                pers += "</table>"
+                            }
+                            $("#tablalistarproducto").empty().append(pers);
+                            $("#opcionespedir").show();
+                        },
+                        error: function (dato) {
+                            $("#impresionerrores").append("ERROR en la recepción de datos de clientes");
+                        }
+
+                    });
+                    return false;
+                }
+                
+                var agregarcarrito = function(){
+                    
+                    $.ajax({
+                                url: "/PaginaPrincipalMaven/compras?ob=cart&op=add" + "&id=" + $("#valornumero").val() + "&amount=" + $("#valorcantidad").val(),
+                                type: "GET",
+                                dataType: "json",
+                                success: function (source) {
+                                   
+                                   if (source.status == 200) {
+                                        
+                                         $("#agregado").empty().append(JSON.stringify(source) + "<br />");
+            
+                                   }
+                                   if (source.status == 500) {
+                                        
+                                         $("#agregado").empty().append(JSON.stringify(source) + "<br />");
+            
+                                   }
+                                   
+                                }, error: function (dato) {
+                                    $("#impresionerrores").append("ERROR en la recepción de datos de clientes");
+                                }
+
+                            });
+                    
+                    return false;
+                }
+
+                $("#productos").click(listarproductos);
+                $("#pedir").click(agregarcarrito);
+            });
+
+        </script>
+    </head>
+    <body>
+        <div class="container"> 
+            <div class="row" id="cabecera">
+                <div class="col-md-12">
+                    <h1>FORMULARIO CARRITO DE COMPRA</h1>
+                </div>
+            </div>
+            <div class="row" id="divdelistaproducto">
+                <div class="col-md-12" id="botonlistarproducto">
+                    <button  type="button" class="btn btn-default" id="productos" value="product">Listar Productos</button>
+                </div>
+                <div class="col-md-3">                    
+                </div>
+                <div class="col-md-6" id="tablalistarproducto">                    
+                </div>
+                <div class="col-md-3">                    
+                </div>
+            </div>
+            <div class="row" id="opcionespedir">
+                <div class="col-md-2">                    
+                </div>
+                <div class="col-md-5" id="fieldopcionespedir">
+                    <label> Numero producto : </label>
+                    <input id="valornumero" type="text" name="valornumero" value=""/> 
+                    <label> Cantidad : </label>
+                    <input id="valorcantidad" type="text" name="valorcantidad" value=""/> 
+                </div>
+                <div class="col-md-4" id="botonopcionespedir">
+                    <button type="button" class="btn btn-default"  id="pedir" value="pedir">Agregar Producto</button>
+                    <a href="compracarrito2.html" class="btn btn-default" role="button">Listar Carrito</a>
+                </div>
+                <div class="col-md-1">                    
+                </div>
+            </div>
+            <div class="row" id="agregado">
+               
+            </div>
+            <div class="row" id="impresionerrorres">
+
+            </div>
+        </div>
+    </body>
+</html>

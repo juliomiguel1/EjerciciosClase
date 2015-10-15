@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script type="text/javascript">
+
+            function adivinar() {
+                var numero = Math.floor((Math.random() * 100) + 1);
+                var intentos = 0;
+
+
+                while (intentos <= 100) {
+
+                    var recibido = prompt("Dame un numero :");
+                    if (recibido > numero) {
+                        document.getElementById('adi').innerHTML =("El numero que ingreso es mayor");
+                    }
+                    else if (recibido < numero) {
+                        document.getElementById('adi').innerHTML =("El numero que ingreso es menor");
+                    }
+                    else
+                        break;
+
+                    intentos++;
+                }
+
+                if (numero == recibido) {
+                    document.getElementById('adi').innerHTML =('Felicidades adivinaste el numero en ' + (intentos + 1) + ' intentos.');
+                } else {
+                    document.getElementById('adi').innerHTML =('Agotaste el numero de intentos, suerte para la proxima!!!');
+                }
+
+
+            }
+            
+            window.onload = adivinar;
+        </script>
+    </head>
+    <body>
+        <h1>ADIVINA EL NUMERO SECRETO</h1>
+        <div id="adi"></div>
+    </body>
+</html>
