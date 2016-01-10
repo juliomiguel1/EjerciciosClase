@@ -115,6 +115,10 @@
         <servlet-name>compras</servlet-name>
         <url-pattern>/compras</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servletListado</servlet-name>
+        <url-pattern>/servletListado</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
