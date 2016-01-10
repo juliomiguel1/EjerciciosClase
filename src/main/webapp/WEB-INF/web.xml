@@ -59,6 +59,10 @@
         <servlet-name>compras</servlet-name>
         <servlet-class>servlet.compras</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>servletFormulario</servlet-name>
+        <servlet-class>servlet.servletFormulario</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>nuevoservlet</servlet-name>
         <url-pattern>/nuevoservlet</url-pattern>
@@ -118,6 +122,10 @@
     <servlet-mapping>
         <servlet-name>servletListado</servlet-name>
         <url-pattern>/servletListado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servletFormulario</servlet-name>
+        <url-pattern>/servletFormulario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

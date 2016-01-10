@@ -12,7 +12,7 @@
             angular.module("MiAplicacion",[]).controller("MiAplicacion01Controller",['$scope','$http',function($scope,$http) {
             var config={
             method:"GET",
-            url:"http://localhost:8081/PaginaPrincipalMaven/servletListado"
+            url:"http://localhost:8081/PaginaPrincipalMaven/servletFormulario?op=getall"
             };
    
             var response=$http(config);
@@ -58,7 +58,7 @@
             <tr ng-repeat="dato in datos">
             <td>{{dato.id}}</td>
             <td>{{dato.apellido | uppercase}}</td>
-            <td>{{dato.nombre | uppercase}}</td>
+            <td>{{dato.Nombre | uppercase}}</td>
             </tr>
             </tbody>
         </table>

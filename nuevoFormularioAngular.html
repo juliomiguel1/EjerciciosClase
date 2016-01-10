@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="MiAplicacion">
+    <head>
+        <title>Ejercicio angular</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+        <script src="js/angular.min.js" type="text/javascript"></script>
+        <script>
+
+
+
+            angular.module("MiAplicacion", []).controller("MiAplicacion01Controller", ['$scope', '$http', function ($scope, $http) {
+                    var config = {
+                        method: "GET",
+                        url: "http://localhost:8081/PaginaPrincipalMaven/servletFormulario?op=getall"
+                    };
+
+                    var response = $http(config);
+
+                    response.success(function (data, status, headers, config) {
+                        $scope.datos = data.message;
+                    });
+
+                }]);
+        </script> 
+
+        <style>
+            table, .input-group{
+                margin: 0 auto;
+                width: 300px;
+                padding-top: 10px;
+                margin-bottom: 10px;
+            }
+            tr, th, td{
+                padding: 10px;
+                text-align: center;
+                border: 1px solid black;
+            }
+
+            th{
+                background-color: grey;
+            }
+
+            #boton, .memoria{
+                width: 290px;
+            }
+        </style>
+    </head>
+    <body ng-controller="MiAplicacion01Controller">
+        
+        
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                <input type="text" class="form-control" placeholder="Buscar por id Alumno" ng-model="buscar">
+            </div>  
+        
+        
+        <table>
+            
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Apellido</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="dato in datos | filter:buscar">
+                <td>{{dato.id}}</td>
+                <td>{{dato.apellido| uppercase}}</td>
+                <td>{{dato.Nombre| uppercase}}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
